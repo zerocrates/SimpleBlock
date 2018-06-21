@@ -51,7 +51,7 @@ class SimpleBlock extends AbstractBlockLayout
     public function form(PhpRenderer $view, SiteRepresentation $site,
         SitePageRepresentation $page = null, SitePageBlockRepresentation $block = null
     ) {
-        return '';
+        return $view->blockAttachmentsForm($block);
     }
 
     /**
@@ -72,6 +72,30 @@ class SimpleBlock extends AbstractBlockLayout
      */
     public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
     {
-        return 'Hello, world! This is a <em>very</em> simple block.';
+        return $view->partial('common/block-layout/simple-block', [
+            'block' => $block,
+        ]);
+    }
+
+    /**
+     * prepareRender() is an optional method (it's defined as a blank method by
+     * the abstract block layout class). Its purpose is to run once per page if this
+     * block is used any number of times on the page.
+     *
+     * Typical usage is to load required CSS or JS for displaying the block, since
+     * those loaded assets can generally be loaded just once and used across many
+     * instances of the same block.
+     *
+     * prepareRender() will run before render().
+     */
+    public function prepareRender(PhpRenderer $view)
+    {
+        $view->headLink()
+            ->appendStylesheet($view->assetUrl('vendor/slick/slick.css', 'SimpleBlock'))
+            ->appendStylesheet($view->assetUrl('vendor/slick/slick-theme.css', 'SimpleBlock'))
+            ->appendStylesheet($view->assetUrl('css/simple-block-carousel.css', 'SimpleBlock'));
+        $view->headScript()
+            ->appendFile($view->assetUrl('vendor/slick/slick.min.js', 'SimpleBlock'))
+            ->appendFile($view->assetUrl('js/simple-block-carousel.js', 'SimpleBlock'));
     }
 }

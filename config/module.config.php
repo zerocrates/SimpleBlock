@@ -5,4 +5,9 @@ return [
             'simpleBlock' => SimpleBlock\Site\BlockLayout\SimpleBlock::class,
         ],
     ],
+    'view_manager' => [
+        'template_path_stack' => [
+            dirname(__DIR__) . '/view',
+        ],
+    ],
 ];

@@ -1,0 +1,17 @@
+<div class="simple-block-carousel">
+<?php
+foreach ($block->attachments() as $attachment):
+    $item = $attachment->item();
+    if (!$attachment->item()) continue;
+    $media = $attachment->media() ?: $item->primaryMedia();
+    if (!$media) continue;
+?>
+    <div>
+    <?php
+    echo $media->render([
+        'thumbnailType' => 'large',
+    ]);
+    ?>
+    </div>
+<?php endforeach; ?>
+</div>

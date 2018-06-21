@@ -1,0 +1,8 @@
+.simple-block-carousel .slick-slide {
+    margin: 0 1em;
+}
+
+.simple-block-carousel .slick-prev:before,
+.simple-block-carousel .slick-next:before {
+    color: #333;
+}
